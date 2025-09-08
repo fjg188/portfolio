@@ -23,7 +23,7 @@ const projects = [
       "My and a friend built a tilt-controlled marble maze game on a FRDM board, we read the onboard accelerometer over I²C and stream state via UART. On the PC side, we created a Python GUI that procedurally generates mazes through recursive backtracking and simulates 2-D physics of the marble.",
     image: "/portfolio/marble-mayhem.png",
     technologies: ["C", "Embedded programming", "Python", "IMU sensors", "I²C", "UART", "Real-time/interrupt-driven firmware", "microcontrollers", "serial communication"],
-    githubUrl: "https://github.com/fjg188/Marble-Mayhem",
+    githubUrl: "https://github.com/fjg188/MarbleMayhem",
     liveUrl: "https://youtu.be/zWesUXPY7sg",
   },
   {
