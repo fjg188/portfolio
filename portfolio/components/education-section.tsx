@@ -13,9 +13,11 @@ const education = [
     period: "August 2023 - Expected May 2027",
     gpa: "3.3/4.0",
     coursework: [
+      "Applied High-Performance and Parallel Computing",
       "Introduction to Analysis of Algorithms",
       "Foundations of AI Reasoning and Decision making",
       "Introduction to Machine Learning",
+      "Introduction to Deep Learning",
       "Discrete Structures",
       "Linear Algebra",
       "Embedded Systems",

@@ -17,12 +17,12 @@ const experiences = [
   },
   {
     title: "Undegraduate Research Assistant",
-    company: "AIRLAB - Cornell Tech",
+    company: "AIRLAB (Artificial Intelligence Robotics Lab) - Cornell Tech",
     location: "Ithaca, NY",
     period: "February 2025 - Present",
     description:
-      "Undergraduate Research Assistant on Multi-Agent Reinforcement Learning for human–robot collaboration in healthcare, contributing to experimental design and algorithm benchmarking and co-authoring a systematic literature review.",
-    skills: ["MARL", "benchmarking", "Machine Learning", "PyTorch", "Research support"],
+      "Undergraduate Research Assistant on Multi-Agent Reinforcement Learning for human–robot collaboration in healthcare and beyond. You can see our most recent publication here: https://arxiv.org/abs/2511.14135",
+    skills: ["MARL", "benchmarking", "Machine Learning", "PyTorch"],
   },
 ]
 
