@@ -6,6 +6,25 @@ import { Calendar, MapPin } from "lucide-react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const experiences = [
+    {
+    title: "Undegraduate Research Assistant",
+    company: "AIRLAB (Artificial Intelligence Robotics Lab) - Cornell Tech",
+    location: "Ithaca, NY",
+    period: "February 2025 - Present",
+    description:
+      "Undergraduate Research Assistant on Multi-Agent Reinforcement Learning for human–robot collaboration in healthcare and beyond. You can see our most recent publication here: https://arxiv.org/abs/2511.14135",
+    skills: ["MARL", "benchmarking", "Machine Learning", "PyTorch"],
+  },
+  {
+    title: "Research and Development Analyst",
+    company: "Cornell DEBUT - Project Team ",
+    location: "Ithaca, NY",
+    period: "September 2025 - Present",
+    description:
+      "Worked on a team developing a low cost ADHD diagnostic tool by intergrating computer vision and wearable technology to track behavioral markers. Engineered a pupil-tracking pipeline using a DeepLabCut CNN to extract and derive biomarkers like velocity and vergance. Trained a logistic regression classifier using MLE to map these features to diagnostic probabilities.",
+    skills: ["Product Development", "Wearable Technology","Embedded Systems", "C/C++", "Computer Vision", "Machine Learning"],
+  },
+  
   {
     title: "Software Engineer Intern",
     company: "VegaMX",
@@ -15,15 +34,7 @@ const experiences = [
       "Modeled wildfire risk for critical infrastructure building a geospatial pipeline that fuses satellite (MODIS) and climate (GRIDMET) data with infastructure asset locations. Computed pixel-level correlations (e.g., Spearman) between vegetation, temperature, wind, drought, and historical fire perimeters to generate features and prototype a risk-scoring function for buildings and electric-grid assets.",
     skills: ["Geospatial", "xarray", "NumPy", "GeoPandas", "Jupyter", "feature engineering", "CRS/projection handling", "data visualization", "Dask", "Zarr", "matplotlib"],
   },
-  {
-    title: "Undegraduate Research Assistant",
-    company: "AIRLAB (Artificial Intelligence Robotics Lab) - Cornell Tech",
-    location: "Ithaca, NY",
-    period: "February 2025 - Present",
-    description:
-      "Undergraduate Research Assistant on Multi-Agent Reinforcement Learning for human–robot collaboration in healthcare and beyond. You can see our most recent publication here: https://arxiv.org/abs/2511.14135",
-    skills: ["MARL", "benchmarking", "Machine Learning", "PyTorch"],
-  },
+
 ]
 
 export function ExperienceSection() {

@@ -8,6 +8,23 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import Image from "next/image"
 
 const projects = [
+    {
+    title: "3-Caml problem",
+    description:
+      "For a final project in my Function programming class, my and two of my friends decided to build a 3D physics sandbox for the classic physics 3-body problem. We decided to take it a step further and create certain scenarios and ways you can play around in the sandbox",
+    image: "/portfolio/3-caml.png",
+    technologies: ["Ocaml", "Functional Programming", "3d graphics", "Physics simulation"],
+    githubUrl: "https://github.com/Anthony-PB/CS3110MP",
+    liveUrl: "https://www.youtube.com/watch?v=-rssoBP_jrM",
+  }, 
+  {
+    title: "Automato",
+    description:
+      "I participated in a claude builders code hackathon with a couple of my friends where we built Automato, a mobile app that transoforms short form videos (TikToks, Reels, YouTube Shorts) into organized, searchable notes using AI. The user pastes the link and the app handles the rest in the background and generates clean structured notes.",
+    technologies: ["OpenAI API", "Claude API", "React Native", "FastAPI", "Supabase"],
+    githubUrl: "https://github.com/dvala041/CBC_Hackathon",
+    liveUrl: "https://devpost.com/software/reelknowledge",
+  },
   {
     title: "BirdSense",
     description:
@@ -25,15 +42,6 @@ const projects = [
     technologies: ["C", "Embedded programming", "Python", "IMU sensors", "I²C", "UART", "Real-time/interrupt-driven firmware", "microcontrollers", "serial communication"],
     githubUrl: "https://github.com/fjg188/MarbleMayhem",
     liveUrl: "https://youtu.be/zWesUXPY7sg",
-  },
-  {
-    title: "Lost at Cornell",
-    description:
-      " I built a RESTful API backend for a swift IOS client for a lost and found app for the Cornell University Community. deployed onto google cloud VM using Docker and Flask. ",
-    image: "/portfolio/lost-Cornell.png",
-    technologies: ["Python", "Docker", "Flask", "REST API", "SQL", "Google Cloud", "backend development","unit testing"],
-    githubUrl: "https://github.com/fjg188/backend--Lost-at-Cornell",
-    liveUrl: "https://youtube.com/shorts/L-FY_Z3aT5c?feature=share",
   },
 ]
 
