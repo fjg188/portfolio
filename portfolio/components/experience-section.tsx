@@ -404,7 +404,7 @@ export function ExperienceSection() {
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-primary mb-4">Experience</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Chapters from my journey so far — research, building, and shipping.
+            My experience so far.
           </p>
         </div>
 
