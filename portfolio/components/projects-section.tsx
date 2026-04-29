@@ -11,7 +11,7 @@ const projects = [
     {
     title: "3-Caml problem",
     description:
-      "For a final project in my Function programming class, my and two of my friends decided to build a 3D physics sandbox for the classic physics 3-body problem. We decided to take it a step further and create certain scenarios and ways you can play around in the sandbox",
+      "For a final project in my Functional Programming class, me and two of my friends decided to build a 3D physics sandbox for the classic physics 3-body problem. We decided to take it a step further and create certain scenarios and ways you can play around in the sandbox",
     image: "/portfolio/3-caml.png",
     technologies: ["Ocaml", "Functional Programming", "3d graphics", "Physics simulation"],
     githubUrl: "https://github.com/Anthony-PB/CS3110MP",
@@ -20,7 +20,7 @@ const projects = [
   {
     title: "Automato",
     description:
-      "I participated in a claude builders code hackathon with a couple of my friends where we built Automato, a mobile app that transoforms short form videos (TikToks, Reels, YouTube Shorts) into organized, searchable notes using AI. The user pastes the link and the app handles the rest in the background and generates clean structured notes.",
+      "I participated in a Claude builders code hackathon with a couple of my friends where we built Automato, a mobile app that transforms short form videos (TikToks, Reels, YouTube Shorts) into organized, searchable notes using AI. The user pastes the link and the app handles the rest in the background and generates clean structured notes.",
     technologies: ["OpenAI API", "Claude API", "React Native", "FastAPI", "Supabase"],
     githubUrl: "https://github.com/dvala041/CBC_Hackathon",
     liveUrl: "https://devpost.com/software/reelknowledge",
@@ -37,7 +37,7 @@ const projects = [
   {
     title: "Marble Mayhem",
     description:
-      "Myfriend and I built a tilt-controlled marble maze game on a FRDM board, we read the onboard accelerometer over I²C and stream state via UART. On the PC side, we created a Python GUI that procedurally generates mazes through recursive backtracking and simulates 2-D physics of the marble.",
+      "My friend and I built a tilt-controlled marble maze game on a FRDM board, we read the onboard accelerometer over I²C and stream state via UART. On the PC side, we created a Python GUI that procedurally generates mazes through recursive backtracking and simulates 2-D physics of the marble.",
     image: "/portfolio/marble-mayhem.png",
     technologies: ["C", "Embedded programming", "Python", "IMU sensors", "I²C", "UART", "Real-time/interrupt-driven firmware", "microcontrollers", "serial communication"],
     githubUrl: "https://github.com/fjg188/MarbleMayhem",
@@ -72,6 +72,8 @@ export function ProjectsSection() {
                 <Image
                   src={project.image || "/portfolio-website/placeholder.svg"}
                   alt={project.title}
+                  width={600}
+                  height={338}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>

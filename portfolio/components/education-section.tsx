@@ -23,8 +23,8 @@ const education = [
       "Embedded Systems",
       "Digital Logic and Computer Organization",
       "Object-Oriented Programming and Data Structures",
-      "Probablity and Statistics",
-      "Foundation of Robotics",
+      "Probability and Statistics",
+      "Foundations of Robotics",
       "Data Structures and Functional Programming",
     ],
   },
@@ -45,51 +45,70 @@ export function EducationSection() {
         </div>
 
         <div className="space-y-8">
-          {/* Degree Information */}
-          {education.map((edu, index) => (
-            <Card
-              key={index}
-              className={`relative transition-all duration-1000 ease-out ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-              }`}
-              style={{ transitionDelay: `${300 + index * 200}ms` }}
-            >
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 bg-accent/10 rounded-lg">
-                      <GraduationCap className="h-6 w-6 text-accent" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-xl text-primary mb-1">{edu.degree}</CardTitle>
-                      <CardDescription className="text-lg font-medium text-accent mb-2">
-                        {edu.institution}
-                      </CardDescription>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center">
-                          <Calendar className="mr-1 h-4 w-4" />
-                          {edu.period}
-                        </div>
-                     {/*<div>GPA: {edu.gpa}</div> */}
+          {education.map((edu, index) => {
+            const half = Math.ceil(edu.coursework.length / 2)
+            const courseworkRows = [edu.coursework.slice(0, half), edu.coursework.slice(half)]
+            return (
+              <Card
+                key={index}
+                className={`relative overflow-hidden hover:shadow-lg transition-all duration-1000 ease-out ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+                }`}
+                style={{ transitionDelay: `${300 + index * 150}ms` }}
+              >
+                {/* Left-side accent border */}
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-accent" aria-hidden />
+
+                <CardHeader className="pl-8">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div className="flex items-start gap-4 flex-1 min-w-0">
+                      <div className="p-3 bg-accent/10 rounded-xl shrink-0">
+                        <GraduationCap className="h-7 w-7 text-accent" />
+                      </div>
+                      <div className="min-w-0">
+                        <CardTitle className="text-2xl sm:text-3xl text-primary leading-tight">
+                          {edu.degree}
+                        </CardTitle>
+                        <CardDescription className="text-lg font-medium text-accent mt-2">
+                          {edu.institution}
+                        </CardDescription>
                       </div>
                     </div>
+                    <div className="flex items-center text-sm text-muted-foreground shrink-0 sm:pt-2">
+                      <Calendar className="mr-1.5 h-4 w-4" />
+                      {edu.period}
+                    </div>
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <h4 className="font-semibold text-primary mb-3">Relevant Coursework</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {edu.coursework.map((course, courseIndex) => (
-                      <Badge key={courseIndex} variant="outline" className="text-xs">
-                        {course}
-                      </Badge>
+                </CardHeader>
+
+                <CardContent className="pl-8 space-y-3">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Relevant Coursework
+                  </h4>
+                  <div className="space-y-2">
+                    {courseworkRows.map((row, rowIndex) => (
+                      <div key={rowIndex} className="flex flex-wrap gap-2">
+                        {row.map((course, courseIndex) => (
+                          <Badge
+                            key={courseIndex}
+                            variant="secondary"
+                            className={`text-xs transition-all duration-700 ease-out ${
+                              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                            }`}
+                            style={{
+                              transitionDelay: `${500 + rowIndex * 100 + courseIndex * 40}ms`,
+                            }}
+                          >
+                            {course}
+                          </Badge>
+                        ))}
+                      </div>
                     ))}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            )
+          })}
         </div>
       </div>
     </section>
