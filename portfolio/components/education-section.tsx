@@ -1,114 +1,206 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { GraduationCap, Calendar } from "lucide-react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import { SectionHeader } from "@/components/section-header"
 
-const education = [
-  {
-    degree: "Bachelor of Science in Computer Science",
-    institution: "Cornell University, College of Engineering",
-    location: "Ithaca, New York",
-    period: "August 2023 - Expected May 2027",
-    gpa: "3.3/4.0",
-    coursework: [
-      "Applied High-Performance and Parallel Computing",
-      "Introduction to Analysis of Algorithms",
-      "Foundations of AI Reasoning and Decision making",
-      "Introduction to Machine Learning",
-      "Introduction to Deep Learning",
-      "Discrete Structures",
-      "Linear Algebra",
-      "Embedded Systems",
-      "Digital Logic and Computer Organization",
-      "Object-Oriented Programming and Data Structures",
-      "Probability and Statistics",
-      "Foundations of Robotics",
-      "Data Structures and Functional Programming",
-    ],
-  },
-]
+const education = {
+  degree: "Bachelor of Science in Computer Science",
+  shortDegree: "B.S. Computer Science",
+  institution: "Cornell University",
+  college: "College of Engineering",
+  location: "Ithaca, New York",
+  period: "Aug 2023 — May 2027",
+  gpa: "3.3 / 4.0",
+  concentrations: ["Machine Learning", "Robotics", "Embedded Systems"],
+  coursework: [
+    "Applied High-Performance and Parallel Computing",
+    "Analysis of Algorithms",
+    "Foundations of AI Reasoning and Decision Making",
+    "Introduction to Machine Learning",
+    "Introduction to Deep Learning",
+    "Discrete Structures",
+    "Linear Algebra",
+    "Embedded Systems",
+    "Digital Logic and Computer Organization",
+    "Object-Oriented Programming & Data Structures",
+    "Probability and Statistics",
+    "Foundations of Robotics",
+    "Data Structures and Functional Programming",
+  ],
+} as const
 
 export function EducationSection() {
   const { ref, isVisible } = useScrollAnimation(0.1)
+  const half = Math.ceil(education.coursework.length / 2)
+  const left = education.coursework.slice(0, half)
+  const right = education.coursework.slice(half)
 
   return (
-    <section id="education" className="py-20 px-4 sm:px-6 lg:px-8" ref={ref}>
-      <div className="container mx-auto max-w-4xl">
-        <div
-          className={`text-center mb-16 transition-all duration-1000 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+    <section
+      id="education"
+      ref={ref}
+      className="px-4 sm:px-6 lg:px-8 py-20 sm:py-28"
+      aria-label="Education"
+    >
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          number="01"
+          label="EDUCATION"
+          title={
+            <>
+              Cornell <span className="italic text-carnelian serif-alt">University</span>
+              <span className="text-carnelian">.</span>
+            </>
+          }
+          meta="01 ENTRY"
+          isVisible={isVisible}
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-primary mb-6">Education</h2>
+          <span className="font-serif italic text-ink-2">
+            Concentrating in machine&nbsp;learning, robotics, and embedded systems &mdash;
+            with a sustained interest in where they intersect.
+          </span>
+        </SectionHeader>
+
+        {/* ── Body grid: degree details (left) / marginalia (right) ─── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-10">
+          {/* Left: degree title + college */}
+          <div className="lg:col-span-7">
+            <p
+              className={`meta text-ink-4 transition-all duration-700 ease-out ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+              style={{ transitionDelay: "500ms" }}
+            >
+              DEGREE
+            </p>
+            <p
+              className={`mt-2 font-serif text-2xl sm:text-3xl text-ink leading-tight transition-all duration-700 ease-out ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+              style={{ transitionDelay: "560ms" }}
+            >
+              {education.shortDegree}
+            </p>
+            <p
+              className={`meta-lg mt-3 text-ink-3 transition-all duration-700 ease-out ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+              style={{ transitionDelay: "620ms" }}
+            >
+              {education.college.toUpperCase()}
+            </p>
+
+            <div
+              className={`mt-8 flex flex-wrap gap-x-2 gap-y-2 transition-all duration-700 ease-out ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+              style={{ transitionDelay: "720ms" }}
+            >
+              <span className="meta text-ink-4">CONCENTRATIONS</span>
+              <span className="meta text-ink-4">/</span>
+              {education.concentrations.map((c, i) => (
+                <span key={c} className="meta-lg text-ink">
+                  {c}
+                  {i < education.concentrations.length - 1 && (
+                    <span className="text-ink-4">&nbsp;&middot;</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: marginalia card */}
+          <aside className="lg:col-span-5 lg:pl-8 lg:border-l lg:border-rule">
+            <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4">
+              {[
+                { term: "PERIOD",   value: education.period,   delay: 540 },
+                { term: "LOCATION", value: education.location, delay: 620 },
+                { term: "GPA",      value: education.gpa,      delay: 700 },
+              ].map((row) => (
+                <div
+                  key={row.term}
+                  className="contents transition-all"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? "translateY(0)" : "translateY(4px)",
+                    transitionDuration: "700ms",
+                    transitionDelay: `${row.delay}ms`,
+                    transitionTimingFunction: "ease-out",
+                  }}
+                >
+                  <dt className="meta self-center text-ink-4">{row.term}</dt>
+                  <dd className="font-serif text-lg text-ink num-tab">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
         </div>
 
-        <div className="space-y-8">
-          {education.map((edu, index) => {
-            const half = Math.ceil(edu.coursework.length / 2)
-            const courseworkRows = [edu.coursework.slice(0, half), edu.coursework.slice(half)]
-            return (
-              <Card
-                key={index}
-                className={`relative overflow-hidden hover:shadow-lg transition-all duration-1000 ease-out ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-                style={{ transitionDelay: `${300 + index * 150}ms` }}
+        {/* ── Coursework: numbered hairline list ─────────────────────── */}
+        <div className="mt-16">
+          <div
+            className={`flex items-baseline justify-between transition-opacity duration-700 ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ transitionDelay: "800ms" }}
+          >
+            <span className="meta-lg text-ink">RELEVANT&nbsp;COURSEWORK</span>
+            <span className="meta text-ink-4 num-tab">
+              {String(education.coursework.length).padStart(2, "0")}&nbsp;COURSES
+            </span>
+          </div>
+
+          <div
+            aria-hidden
+            className="mt-3 h-px origin-left bg-ink/35 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{
+              transform: isVisible ? "scaleX(1)" : "scaleX(0)",
+              transitionDelay: "850ms",
+            }}
+          />
+
+          <div className="mt-2 grid grid-cols-1 md:grid-cols-2 md:gap-x-10">
+            {[left, right].map((col, colIdx) => (
+              <ul
+                key={colIdx}
+                className="divide-y divide-rule"
               >
-                {/* Left-side accent border */}
-                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-accent" aria-hidden />
+                {col.map((course, i) => {
+                  const idx = colIdx === 0 ? i : i + half
+                  return (
+                    <li
+                      key={course}
+                      className="grid grid-cols-[2.25rem_1fr] items-baseline gap-x-3 py-3 transition-all"
+                      style={{
+                        opacity: isVisible ? 1 : 0,
+                        transform: isVisible ? "translateX(0)" : "translateX(-6px)",
+                        transitionDuration: "650ms",
+                        transitionDelay: `${950 + idx * 45}ms`,
+                        transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                    >
+                      <span className="meta text-ink-4 num-tab">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-ink leading-snug">{course}</span>
+                    </li>
+                  )
+                })}
+              </ul>
+            ))}
+          </div>
 
-                <CardHeader className="pl-8">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                    <div className="flex items-start gap-4 flex-1 min-w-0">
-                      <div className="p-3 bg-accent/10 rounded-xl shrink-0">
-                        <GraduationCap className="h-7 w-7 text-accent" />
-                      </div>
-                      <div className="min-w-0">
-                        <CardTitle className="text-2xl sm:text-3xl text-primary leading-tight">
-                          {edu.degree}
-                        </CardTitle>
-                        <CardDescription className="text-lg font-medium text-accent mt-2">
-                          {edu.institution}
-                        </CardDescription>
-                      </div>
-                    </div>
-                    <div className="flex items-center text-sm text-muted-foreground shrink-0 sm:pt-2">
-                      <Calendar className="mr-1.5 h-4 w-4" />
-                      {edu.period}
-                    </div>
-                  </div>
-                </CardHeader>
-
-                <CardContent className="pl-8 space-y-3">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Relevant Coursework
-                  </h4>
-                  <div className="space-y-2">
-                    {courseworkRows.map((row, rowIndex) => (
-                      <div key={rowIndex} className="flex flex-wrap gap-2">
-                        {row.map((course, courseIndex) => (
-                          <Badge
-                            key={courseIndex}
-                            variant="secondary"
-                            className={`text-xs transition-all duration-700 ease-out ${
-                              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-                            }`}
-                            style={{
-                              transitionDelay: `${500 + rowIndex * 100 + courseIndex * 40}ms`,
-                            }}
-                          >
-                            {course}
-                          </Badge>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })}
+          <div
+            aria-hidden
+            className="mt-0 h-px origin-left bg-rule"
+            style={{
+              transform: isVisible ? "scaleX(1)" : "scaleX(0)",
+              transitionProperty: "transform",
+              transitionDuration: "700ms",
+              transitionDelay: `${950 + education.coursework.length * 45 + 100}ms`,
+              transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          />
         </div>
       </div>
     </section>

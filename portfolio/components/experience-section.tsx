@@ -1,21 +1,16 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin, Circle } from "lucide-react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
-
-type RoleColor = "purple" | "teal" | "blue"
+import { SectionHeader } from "@/components/section-header"
 
 type Experience = {
   title: string
   company: string
+  shortCompany: string
   location: string
   period: string
   type: string
-  color: RoleColor
   description: string
   skills: string[]
 }
@@ -23,27 +18,27 @@ type Experience = {
 const experiences: Experience[] = [
   {
     title: "Undergraduate Research Assistant",
-    company: "AIRLAB (Artificial Intelligence Robotics Lab) - Cornell Tech",
+    company: "AIRLAB · Cornell Tech",
+    shortCompany: "AIRLAB",
     location: "Ithaca, NY",
-    period: "February 2025 - Present",
+    period: "Feb 2025 — Present",
     type: "Research",
-    color: "blue",
     description:
-      "Undergraduate Research Assistant on Multi-Agent Reinforcement Learning for human–robot collaboration in healthcare and beyond. Publication: https://arxiv.org/abs/2511.14135",
-    skills: ["MARL", "benchmarking", "Machine Learning", "PyTorch"],
+      "Multi-Agent Reinforcement Learning for human–robot collaboration in healthcare and beyond. Co-author on a recent publication at arxiv.org/abs/2511.14135.",
+    skills: ["MARL", "Benchmarking", "Machine Learning", "PyTorch"],
   },
   {
-    title: "Research and Development Analyst",
-    company: "Cornell DEBUT - Project Team",
+    title: "R&D Analyst",
+    company: "Cornell DEBUT · Project Team",
+    shortCompany: "DEBUT",
     location: "Ithaca, NY",
-    period: "September 2025 - Present",
+    period: "Sep 2025 — Present",
     type: "Project Team",
-    color: "blue",
     description:
-      "Worked on a team developing a low cost ADHD diagnostic tool by integrating computer vision and wearable technology to track behavioral markers. Engineered a pupil-tracking pipeline using a DeepLabCut CNN to extract and derive biomarkers like velocity and vergence. Trained a logistic regression classifier using MLE to map these features to diagnostic probabilities.",
+      "Developing a low-cost ADHD diagnostic tool that fuses computer vision and wearable sensors. Engineered a pupil-tracking pipeline using a DeepLabCut CNN to derive biomarkers (velocity, vergence) and trained a logistic-regression classifier (MLE) mapping features to diagnostic probabilities.",
     skills: [
       "Product Development",
-      "Wearable Technology",
+      "Wearable Tech",
       "Embedded Systems",
       "C/C++",
       "Computer Vision",
@@ -53,70 +48,26 @@ const experiences: Experience[] = [
   {
     title: "Software Engineer Intern",
     company: "VegaMX",
+    shortCompany: "VegaMX",
     location: "New York, NY",
-    period: "June 2025 - August 2025",
+    period: "Jun 2025 — Aug 2025",
     type: "Internship",
-    color: "blue",
     description:
-      "Modeled wildfire risk for critical infrastructure building a geospatial pipeline that fuses satellite (MODIS) and climate (GRIDMET) data with infrastructure asset locations. Computed pixel-level correlations (e.g., Spearman) between vegetation, temperature, wind, drought, and historical fire perimeters to generate features and prototype a risk-scoring function for buildings and electric-grid assets.",
+      "Modeled wildfire risk for critical infrastructure: built a geospatial pipeline fusing satellite (MODIS) and climate (GRIDMET) data with infrastructure asset locations. Computed pixel-level correlations (e.g., Spearman) between vegetation, temperature, wind, drought, and historical fire perimeters to generate features and prototype a risk-scoring function for buildings and electric-grid assets.",
     skills: [
       "Geospatial",
       "xarray",
       "NumPy",
       "GeoPandas",
-      "Jupyter",
-      "feature engineering",
-      "CRS/projection handling",
-      "data visualization",
       "Dask",
       "Zarr",
-      "matplotlib",
+      "Feature Engineering",
+      "Matplotlib",
     ],
   },
 ]
 
-const colorStyles: Record<
-  RoleColor,
-  {
-    pillBg: string
-    pillText: string
-    logoGlow: string
-    pingBg: string
-    accent: string
-    placeholderIcon: string
-    hoverGlow: string
-  }
-> = {
-  purple: {
-    pillBg: "bg-purple-400/10",
-    pillText: "text-purple-400",
-    logoGlow: "shadow-lg shadow-purple-500/30",
-    pingBg: "bg-purple-400",
-    accent: "text-purple-400",
-    placeholderIcon: "text-purple-400/50",
-    hoverGlow: "shadow-2xl shadow-purple-500/30",
-  },
-  teal: {
-    pillBg: "bg-teal-400/10",
-    pillText: "text-teal-400",
-    logoGlow: "shadow-lg shadow-teal-500/30",
-    pingBg: "bg-teal-400",
-    accent: "text-teal-400",
-    placeholderIcon: "text-teal-400/50",
-    hoverGlow: "shadow-2xl shadow-teal-500/30",
-  },
-  blue: {
-    pillBg: "bg-blue-400/10",
-    pillText: "text-blue-400",
-    logoGlow: "shadow-lg shadow-blue-500/30",
-    pingBg: "bg-blue-400",
-    accent: "text-blue-400",
-    placeholderIcon: "text-blue-400/50",
-    hoverGlow: "shadow-2xl shadow-blue-500/30",
-  },
-}
-
-const MAX_TILT_DEG = 3
+const MAX_TILT_DEG = 2
 
 function ExperienceCard({
   experience,
@@ -127,14 +78,13 @@ function ExperienceCard({
   index: number
   isVisible: boolean
 }) {
-  const c = colorStyles[experience.color]
   const isActive = experience.period.toLowerCase().includes("present")
 
-  // Slide-in / spine-reach choreography
+  // Choreography
   const baseDelay = 400
-  const cardDelay = baseDelay + index * 300
-  const logoDelay = cardDelay - 50
-  const connectorDelay = cardDelay - 100
+  const cardDelay = baseDelay + index * 240
+  const markerDelay = cardDelay - 80
+  const connectorDelay = cardDelay - 120
   const slideDuration = 700
 
   // Hover/tilt state
@@ -146,7 +96,6 @@ function ExperienceCard({
   const [interactionsEnabled, setInteractionsEnabled] = useState(false)
   const [canHover, setCanHover] = useState(true)
 
-  // Detect hover-capable input (desktop pointer vs touch)
   useEffect(() => {
     if (typeof window === "undefined") return
     const mql = window.matchMedia("(hover: hover) and (pointer: fine)")
@@ -156,14 +105,15 @@ function ExperienceCard({
     return () => mql.removeEventListener?.("change", update)
   }, [])
 
-  // Only enable tilt/hover-reveal after slide-in completes, so nothing fights the entrance
   useEffect(() => {
     if (!isVisible) return
-    const t = window.setTimeout(() => setInteractionsEnabled(true), cardDelay + slideDuration + 50)
+    const t = window.setTimeout(
+      () => setInteractionsEnabled(true),
+      cardDelay + slideDuration + 50,
+    )
     return () => window.clearTimeout(t)
   }, [isVisible, cardDelay])
 
-  // Touch devices: reveal description by default and skip tilt entirely
   const showDescription = !canHover ? true : hasBeenHovered
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -191,190 +141,172 @@ function ExperienceCard({
   }
 
   return (
-    <div className="relative pl-24 sm:pl-32">
-      {/* Logo placeholder — centered on the spine */}
+    <div className="relative pl-16 sm:pl-24">
+      {/* Spine marker — mono numbered ring */}
       <div
-        className={`absolute left-0 sm:left-4 top-2 h-16 w-16 rounded-full bg-muted ring-1 ring-border flex items-center justify-center ${c.logoGlow} transition-all duration-700 ease-out z-10`}
+        className="absolute left-0 top-3 z-10 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-ink/40 bg-bone transition-all duration-700 ease-out"
         style={{
           opacity: isVisible ? 1 : 0,
-          transform: isVisible ? "scale(1)" : "scale(0.5)",
-          transitionDelay: `${logoDelay}ms`,
+          transform: isVisible ? "scale(1)" : "scale(0.6)",
+          transitionDelay: `${markerDelay}ms`,
         }}
         aria-hidden
       >
-        {/* TODO: replace with <Image> company logo */}
-        <Circle className={`h-6 w-6 ${c.placeholderIcon}`} strokeWidth={1.5} />
+        <span className="meta-lg text-ink num-tab">
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
 
       {/* Horizontal connector — draws from spine to card */}
       <div
-        className="absolute left-16 sm:left-20 top-10 h-px w-8 sm:w-12 origin-left bg-gradient-to-r from-border to-border/40 ease-out"
+        className="absolute left-12 sm:left-14 top-9 h-px w-4 sm:w-10 origin-left bg-ink/30 ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{
           transform: isVisible ? "scaleX(1)" : "scaleX(0)",
           transitionProperty: "transform",
           transitionDuration: "500ms",
           transitionDelay: `${connectorDelay}ms`,
-          transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
         }}
         aria-hidden
       />
 
-      {/* Slide-in wrapper (entrance animation) */}
+      {/* Slide-in wrapper */}
       <div
         className="transition-all ease-out"
         style={{
           opacity: isVisible ? 1 : 0,
-          transform: isVisible ? "translateX(0)" : "translateX(60px)",
+          transform: isVisible ? "translateX(0)" : "translateX(40px)",
           transitionDuration: `${slideDuration}ms`,
           transitionDelay: `${cardDelay}ms`,
         }}
       >
-        {/* Perspective wrapper — measured for cursor position, never rotates */}
+        {/* Perspective wrapper */}
         <div
           ref={perspectiveRef}
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          style={{ perspective: "1000px" }}
+          style={{ perspective: "1200px" }}
           className="will-change-transform"
         >
-          {/* Tilt rotator — applies the rotateX/Y transform */}
+          {/* Tilt rotator */}
           <div
-            className="ease-out"
+            className="relative ease-out"
             style={{
               transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${
-                isHovering ? 1.01 : 1
+                isHovering ? 1.005 : 1
               })`,
               transformStyle: "preserve-3d",
-              transitionProperty: "transform, box-shadow",
+              transitionProperty: "transform",
               transitionDuration: isHovering ? "150ms" : "400ms",
               willChange: "transform",
             }}
           >
-            <Card className="relative overflow-hidden shadow-md transition-shadow duration-500 ease-out">
-              {/* Hero image */}
-              <div className="relative aspect-video overflow-hidden">
-                {/* TODO: replace with role-specific hero image */}
-                <Image
-                  src="/portfolio/experience-placeholder.png"
-                  alt={`${experience.company} hero image`}
-                  width={800}
-                  height={300}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-out"
-                  style={{ transform: isHovering ? "scale(1.05)" : "scale(1)" }}
-                />
-                {/* Gradient overlay fading into card background */}
-                <div
-                  className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-card to-transparent pointer-events-none"
-                  aria-hidden
-                />
-              </div>
+            <article className="relative border border-ink/25 bg-bone transition-colors duration-300 hover:border-ink/60">
+              {/* Top metadata strip */}
+              <header className="flex items-baseline justify-between gap-3 border-b border-rule px-5 py-3">
+                <span className="meta-lg text-ink">
+                  <span className="text-ink-3">TYPE</span>
+                  <span className="text-ink-4">&nbsp;/&nbsp;</span>
+                  {experience.type.toUpperCase()}
+                </span>
+                <span className="meta text-ink-4 num-tab">
+                  {experience.period.toUpperCase()}
+                </span>
+              </header>
 
-              {/* Active role indicator */}
+              {/* Active indicator — top right corner */}
               {isActive && (
-                <div className="absolute top-3 right-3 z-20 group">
-                  <span className="relative flex h-2 w-2">
-                    <span
-                      className={`absolute inline-flex h-full w-full animate-ping rounded-full ${c.pingBg} opacity-75`}
-                    />
-                    <span
-                      className={`relative inline-flex h-2 w-2 rounded-full ${c.pingBg}`}
-                    />
+                <div className="group/active absolute -top-2 -right-2 z-20">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-carnelian opacity-75" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-carnelian ring-2 ring-bone" />
                   </span>
                   <span
                     role="tooltip"
-                    className="pointer-events-none absolute top-full right-0 mt-2 whitespace-nowrap rounded-md border border-border bg-popover px-2 py-1 text-xs text-popover-foreground opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100"
+                    className="pointer-events-none absolute right-0 top-full mt-2 whitespace-nowrap border border-rule bg-bone px-2 py-1 meta text-ink shadow-[2px_2px_0_0_var(--ink)] opacity-0 transition-opacity duration-200 group-hover/active:opacity-100"
                   >
-                    Currently active
+                    CURRENTLY ACTIVE
                   </span>
                 </div>
               )}
 
-              <CardHeader>
-                {/* Role type pill */}
-                <div className="mb-2">
-                  <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${c.pillBg} ${c.pillText}`}
-                  >
-                    {experience.type}
-                  </span>
-                </div>
-
+              {/* Body */}
+              <div className="px-5 py-5 sm:px-6 sm:py-6">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                   <div className="flex-1 min-w-0">
-                    <CardTitle className="text-xl text-primary">{experience.title}</CardTitle>
-                    <CardDescription className="text-lg font-medium text-accent mt-1">
+                    <h3 className="font-serif text-2xl sm:text-[1.75rem] text-ink leading-[1.1] tracking-[-0.015em]">
+                      {experience.title}
+                    </h3>
+                    <p className="mt-1 text-ink-2 text-base">
                       {experience.company}
-                    </CardDescription>
+                    </p>
                   </div>
-                  <div className="flex flex-col sm:items-end gap-1 shrink-0">
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Calendar className="mr-1 h-4 w-4" />
-                      {experience.period}
-                    </div>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <MapPin className="mr-1 h-4 w-4" />
-                      {experience.location}
-                    </div>
-                  </div>
+                  <p className="meta text-ink-4 shrink-0 sm:pt-2">
+                    {experience.location.toUpperCase()}
+                  </p>
                 </div>
-              </CardHeader>
 
-              <CardContent>
-                {/* Tags row: 3 + overflow when collapsed, all when revealed */}
-                <div className="flex flex-wrap gap-2">
-                  {(showDescription ? experience.skills : experience.skills.slice(0, 3)).map(
-                    (skill) => (
-                      <Badge
-                        key={skill}
-                        variant="secondary"
-                        className="text-xs animate-fade-in-scale"
-                      >
-                        {skill}
-                      </Badge>
+                {/* Skills row — mono dot-separated, with overflow when collapsed */}
+                <div className="mt-5 flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                  {(showDescription ? experience.skills : experience.skills.slice(0, 4)).map(
+                    (skill, i, arr) => (
+                      <span key={skill} className="meta text-ink-3 num-tab">
+                        {skill.toUpperCase()}
+                        {i < arr.length - 1 && (
+                          <span className="ml-1.5 text-ink-4">&middot;</span>
+                        )}
+                      </span>
                     ),
                   )}
-                  {!showDescription && experience.skills.length > 3 && (
-                    <Badge variant="secondary" className="text-xs">
-                      +{experience.skills.length - 3} more
-                    </Badge>
+                  {!showDescription && experience.skills.length > 4 && (
+                    <span className="meta text-ink-4 num-tab">
+                      &nbsp;+&nbsp;{experience.skills.length - 4}&nbsp;more
+                    </span>
                   )}
                 </div>
-              </CardContent>
 
-              {/* Description reveal — animates height (grid trick) + opacity + translateY */}
-              <div
-                className="grid transition-[grid-template-rows] duration-500 ease-out"
-                style={{
-                  gridTemplateRows: showDescription ? "1fr" : "0fr",
-                }}
-              >
-                <div className="overflow-hidden">
-                  <CardContent className="pt-0">
+                {/* Description reveal — grid template rows trick */}
+                <div
+                  className="grid transition-[grid-template-rows] duration-500 ease-out"
+                  style={{
+                    gridTemplateRows: showDescription ? "1fr" : "0fr",
+                  }}
+                >
+                  <div className="overflow-hidden">
                     <div
-                      className="border-t border-border/60 pt-4 pb-2 ease-out"
+                      className="mt-5 border-t border-rule pt-4 ease-out"
                       style={{
                         opacity: showDescription ? 1 : 0,
-                        transform: showDescription ? "translateY(0)" : "translateY(-10px)",
+                        transform: showDescription ? "translateY(0)" : "translateY(-6px)",
                         transitionProperty: "opacity, transform",
                         transitionDuration: "400ms",
                         transitionDelay: showDescription ? "120ms" : "0ms",
                       }}
                     >
-                      <p className="text-foreground leading-relaxed">{experience.description}</p>
+                      <p className="text-ink-2 text-sm sm:text-[0.9375rem] leading-relaxed">
+                        {experience.description}
+                      </p>
                     </div>
-                  </CardContent>
+                  </div>
                 </div>
-              </div>
-            </Card>
 
-            {/* Cursor-tracking spotlight border halo */}
+                {/* Hover hint when collapsed (desktop only) */}
+                {canHover && !showDescription && (
+                  <p className="mt-4 meta text-ink-4 transition-opacity duration-300">
+                    HOVER TO EXPAND&nbsp;
+                    <span className="text-ink-3">↓</span>
+                  </p>
+                )}
+              </div>
+            </article>
+
+            {/* Cursor-tracking spotlight halo */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-xl"
+              className="pointer-events-none absolute inset-0"
               style={{
-                padding: "1.5px",
-                background: `radial-gradient(220px circle at ${mouse.x}px ${mouse.y}px, var(--accent), transparent 70%)`,
+                padding: "1px",
+                background: `radial-gradient(180px circle at ${mouse.x}px ${mouse.y}px, var(--carnelian), transparent 70%)`,
                 WebkitMask:
                   "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
                 WebkitMaskComposite: "xor",
@@ -392,42 +324,54 @@ function ExperienceCard({
 }
 
 export function ExperienceSection() {
-  const { ref, isVisible } = useScrollAnimation(0.1)
+  const { ref, isVisible } = useScrollAnimation(0.05)
 
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/10" ref={ref}>
-      <div className="container mx-auto max-w-4xl">
-        <div
-          className={`text-center mb-16 transition-all duration-1000 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+    <section
+      id="experience"
+      ref={ref}
+      className="px-4 sm:px-6 lg:px-8 py-20 sm:py-28"
+      aria-label="Experience"
+    >
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          number="03"
+          label="EXPERIENCE"
+          title={
+            <>
+              Where I've <span className="italic text-carnelian serif-alt">been</span>
+              <span className="text-carnelian">.</span>
+            </>
+          }
+          meta={`${String(experiences.length).padStart(2, "0")} ROLES`}
+          isVisible={isVisible}
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-primary mb-4">Experience</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            My experience so far.
-          </p>
-        </div>
+          <span className="font-serif italic text-ink-2">
+            Research and engineering across labs, project teams, and industry &mdash;
+            roughly in reverse chronological order.
+          </span>
+        </SectionHeader>
 
         {/* Timeline */}
-        <div className="relative">
+        <div className="relative mt-12">
           {/* Spine track (full-height background) */}
           <div
-            className="absolute left-8 sm:left-12 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-border/30"
+            className="absolute left-6 sm:left-7 top-3 bottom-3 w-px bg-rule"
             aria-hidden
           />
-          {/* Spine draw-on (gradient grows from top) */}
+          {/* Spine draw-on */}
           <div
-            className="absolute left-8 sm:left-12 top-0 w-0.5 -translate-x-1/2 overflow-hidden"
-            style={{ bottom: 0 }}
+            className="absolute left-6 sm:left-7 top-3 w-px overflow-hidden"
+            style={{ bottom: "0.75rem" }}
             aria-hidden
           >
             <div
-              className="w-full bg-gradient-to-b from-accent via-accent/70 to-muted/30 ease-out"
+              className="w-full bg-gradient-to-b from-ink via-ink/60 to-rule ease-[cubic-bezier(0.22,1,0.36,1)]"
               style={{
                 height: isVisible ? "100%" : "0%",
                 transitionProperty: "height",
                 transitionDuration: "1800ms",
-                transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+                transitionDelay: "200ms",
               }}
             />
           </div>
@@ -435,7 +379,7 @@ export function ExperienceSection() {
           <div className="space-y-12 sm:space-y-16">
             {experiences.map((experience, index) => (
               <ExperienceCard
-                key={experience.company}
+                key={experience.shortCompany}
                 experience={experience}
                 index={index}
                 isVisible={isVisible}
