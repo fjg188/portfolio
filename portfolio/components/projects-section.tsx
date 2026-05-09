@@ -203,7 +203,7 @@ export function ProjectsSection() {
     <section
       id="projects"
       ref={ref}
-      className="px-4 sm:px-6 lg:px-8 py-20 sm:py-28"
+      className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
       aria-label="Projects"
     >
       <div className="mx-auto max-w-6xl">
@@ -220,8 +220,8 @@ export function ProjectsSection() {
           isVisible={isVisible}
         >
           <span className="font-serif italic text-ink-2">
-            A few of the things I've shipped recently &mdash; from real-time bird
-            classifiers to embedded tilt mazes.
+            A few of the things I've recently built either for school, hackathons, or just for fun.
+            I'm always looking for cool projects from which I can learn a lot.
           </span>
         </SectionHeader>
 

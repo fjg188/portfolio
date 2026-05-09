@@ -16,17 +16,17 @@ type Experience = {
 }
 
 const experiences: Experience[] = [
-  {
-    title: "Undergraduate Research Assistant",
-    company: "AIRLAB · Cornell Tech",
-    shortCompany: "AIRLAB",
-    location: "Ithaca, NY",
-    period: "Feb 2025 — Present",
-    type: "Research",
-    description:
-      "Multi-Agent Reinforcement Learning for human–robot collaboration in healthcare and beyond. Co-author on a recent publication at arxiv.org/abs/2511.14135.",
-    skills: ["MARL", "Benchmarking", "Machine Learning", "PyTorch"],
-  },
+      {
+    title: "Software Developer Intern",
+    company: "Amazon · AWS",
+    shortCompany: "AWS",
+    location: "New York, NY",
+    period: "May 2026 — Present",
+    type: "Internship",
+    description: "",
+    skills: [
+    ],
+  },  
   {
     title: "R&D Analyst",
     company: "Cornell DEBUT · Project Team",
@@ -45,6 +45,18 @@ const experiences: Experience[] = [
       "Machine Learning",
     ],
   },
+  {
+    title: "Undergraduate Research Assistant",
+    company: "AIRLAB · Cornell Tech",
+    shortCompany: "AIRLAB",
+    location: "Ithaca, NY",
+    period: "Feb 2025 — Present",
+    type: "Research",
+    description:
+      "Multi-Agent Reinforcement Learning for human–robot collaboration in healthcare and beyond. Co-author on a recent publication at arxiv.org/abs/2511.14135.",
+    skills: ["MARL", "Benchmarking", "Machine Learning", "PyTorch"],
+  },
+
   {
     title: "Software Engineer Intern",
     company: "VegaMX",
@@ -330,7 +342,7 @@ export function ExperienceSection() {
     <section
       id="experience"
       ref={ref}
-      className="px-4 sm:px-6 lg:px-8 py-20 sm:py-28"
+      className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
       aria-label="Experience"
     >
       <div className="mx-auto max-w-6xl">
@@ -346,9 +358,11 @@ export function ExperienceSection() {
           meta={`${String(experiences.length).padStart(2, "0")} ROLES`}
           isVisible={isVisible}
         >
+          {/* could add something interesting here blurb thing if I want*/}
           <span className="font-serif italic text-ink-2">
-            Research and engineering across labs, project teams, and industry &mdash;
-            roughly in reverse chronological order.
+            Some of the places I have worked at in the past and present and what I did there.
+            Im always looking for fun cool oppurtunities from which I can grow as a software engineer 
+            and as a person.
           </span>
         </SectionHeader>
 

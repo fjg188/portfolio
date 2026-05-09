@@ -20,7 +20,7 @@ export function SectionHeader({
   isVisible,
 }: SectionHeaderProps) {
   return (
-    <header className="mb-10 sm:mb-14">
+    <header className="mb-8 sm:mb-10">
       {/* Top mono strip: §·0X — LABEL ........ META */}
       <div className="flex items-baseline justify-between gap-4 mb-5">
         <span

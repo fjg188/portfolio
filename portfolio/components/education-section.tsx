@@ -11,7 +11,7 @@ const education = {
   location: "Ithaca, New York",
   period: "Aug 2023 — May 2027",
   gpa: "3.3 / 4.0",
-  concentrations: ["Machine Learning", "Robotics", "Embedded Systems"],
+  concentrations: ["Machine Learning", "Distributed and High Performance Computing", "Embedded Systems"],
   coursework: [
     "Applied High-Performance and Parallel Computing",
     "Analysis of Algorithms",
@@ -39,7 +39,7 @@ export function EducationSection() {
     <section
       id="education"
       ref={ref}
-      className="px-4 sm:px-6 lg:px-8 py-20 sm:py-28"
+      className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
       aria-label="Education"
     >
       <div className="mx-auto max-w-6xl">
@@ -54,13 +54,13 @@ export function EducationSection() {
           }
           meta="01 ENTRY"
           isVisible={isVisible}
-        >
+        > 
+        {/* could add something interesting here blurb thing if I want*/}
           <span className="font-serif italic text-ink-2">
-            Concentrating in machine&nbsp;learning, robotics, and embedded systems &mdash;
-            with a sustained interest in where they intersect.
+            I've taken a lot of interesting and random courses at Cornell, like Intro to Wines and hands-on Horticulture.
+            Here are some of the more technical and CS-focused courses I've taken and found super interesting.
           </span>
         </SectionHeader>
-
         {/* ── Body grid: degree details (left) / marginalia (right) ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-10">
           {/* Left: degree title + college */}
@@ -114,8 +114,8 @@ export function EducationSection() {
             <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4">
               {[
                 { term: "PERIOD",   value: education.period,   delay: 540 },
-                { term: "LOCATION", value: education.location, delay: 620 },
-                { term: "GPA",      value: education.gpa,      delay: 700 },
+                { term: "LOCATION", value: education.location, delay: 620 }
+                //,{ term: "GPA",      value: education.gpa,      delay: 700 },
               ].map((row) => (
                 <div
                   key={row.term}

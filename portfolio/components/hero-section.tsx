@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Linkedin, Github, Mail } from "lucide-react"
+import { ArrowUpRight, Linkedin, Github, Mail, FileText } from "lucide-react"
 
 const onFile = [
-  { label: "Undergraduate Researcher",     org: "AIRLAB · Cornell Tech",          since: "2025—" },
+  
   { label: "R&D Analyst",                  org: "Cornell DEBUT",                  since: "2025—" },
+  { label: "Undergraduate Researcher",     org: "AIRLAB · Cornell Tech",          since: "2025—" },
   { label: "B.S. Computer Science",        org: "Cornell · College of Engineering", since: "Class of '27" },
 ] as const
 
@@ -15,6 +16,7 @@ const contacts = [
   { label: "linkedin", href: "https://www.linkedin.com/in/grimm-felix/", icon: Linkedin },
   { label: "github",   href: "https://github.com/fjg188",                icon: Github },
   { label: "email",    href: "mailto:fjg45@cornell.edu",                 icon: Mail },
+  { label: "resume",   href: "/Felix_Resume.pdf",                        icon: FileText },
 ] as const
 
 export function HeroSection() {
@@ -28,7 +30,7 @@ export function HeroSection() {
     <section
       id="index"
       aria-label="Index"
-      className="relative px-4 sm:px-6 lg:px-8 pt-12 pb-16 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-32"
+      className="relative px-4 sm:px-6 lg:px-8 pt-10 pb-10 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-12"
     >
       <div className="mx-auto max-w-6xl">
         {/* ── Top metadata strip ───────────────────────────────────────── */}
@@ -40,9 +42,6 @@ export function HeroSection() {
           <span className="meta-lg text-ink">
             <span className="text-ink-3">§</span>&nbsp;00
             <span className="text-ink-3">&nbsp;&middot;&nbsp;</span>INDEX
-          </span>
-          <span className="meta text-ink-4 hidden sm:inline">
-            ON FILE / REV.&nbsp;2026.05.08
           </span>
         </div>
 
@@ -65,7 +64,7 @@ export function HeroSection() {
               style={{ transitionDelay: "200ms" }}
             >
               ENGINEER&nbsp;
-              <span className="text-ink-4">/</span>&nbsp;RESEARCHER&nbsp;
+              <span className="text-ink-4">/</span>&nbsp;Computer Science&nbsp;
               <span className="text-ink-4">/</span>&nbsp;CORNELL&nbsp;CS&nbsp;'27
             </p>
 
@@ -96,8 +95,8 @@ export function HeroSection() {
               }`}
               style={{ transitionDelay: "560ms" }}
             >
-              Building at the edge of software and physical systems&nbsp;&mdash; multi-agent
-              learning, computer vision, embedded firmware, geospatial pipelines.
+              Constantly learning and building at the intersection of software, hardware, and machine learning.
+              Currently working on passion projects, excited to start my internship at AWS this summer!
             </p>
 
             {/* Contact strip */}
@@ -164,15 +163,14 @@ export function HeroSection() {
               </figcaption>
             </figure>
 
-            {/* ON FILE list */}
+            {/* Affiliations list */}
             <div
               className={`mt-10 transition-all duration-1000 ease-out ${
                 loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
               }`}
               style={{ transitionDelay: "640ms" }}
             >
-              <p className="meta text-ink-3">ON&nbsp;FILE</p>
-              <ul className="mt-3 divide-y divide-rule border-y border-rule">
+              <ul className="divide-y divide-rule border-y border-rule">
                 {onFile.map((item, i) => (
                   <li
                     key={item.label}
@@ -198,23 +196,6 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* ── Footer metadata strip ───────────────────────────────────── */}
-        <div
-          className={`mt-16 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-4 transition-opacity duration-700 ${
-            loaded ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ transitionDelay: "1000ms" }}
-        >
-          <span className="meta text-ink-3">
-            <span className="text-ink-4">LAT</span>&nbsp;42.4534°N&nbsp;
-            <span className="text-ink-4 mx-1">/</span>&nbsp;
-            <span className="text-ink-4">LON</span>&nbsp;76.4735°W
-          </span>
-          <span className="meta text-ink-4 hidden sm:inline">
-            SCROLL&nbsp;FOR&nbsp;§&nbsp;01
-            <span className="ml-2 inline-block animate-caret-blink">↓</span>
-          </span>
-        </div>
       </div>
     </section>
   )
