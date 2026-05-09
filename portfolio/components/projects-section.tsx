@@ -4,6 +4,7 @@ import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { SectionHeader } from "@/components/section-header"
+import { asset } from "@/lib/asset"
 
 type Project = {
   fig: string
@@ -123,7 +124,7 @@ function ProjectCard({
             }`}
           >
             <Image
-              src={project.image as string}
+              src={asset(project.image as string)}
               alt={`${project.title} — figure ${project.fig}`}
               fill
               sizes="(min-width: 1024px) 800px, 100vw"

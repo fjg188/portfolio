@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Linkedin, Github, Mail, FileText } from "lucide-react"
+import { asset } from "@/lib/asset"
 
 const onFile = [
   
@@ -135,7 +136,7 @@ export function HeroSection() {
                 {/* Image — wrapped so overflow-hidden doesn't clip the corner marks */}
                 <div className="absolute inset-0 overflow-hidden">
                   <Image
-                    src="/headshot.jpeg"
+                    src={asset("/headshot.jpeg")}
                     alt="Felix Grimm"
                     width={400}
                     height={400}
